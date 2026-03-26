@@ -1,6 +1,6 @@
 # MoveIt 到上位机桥接与真机联调
 
-面向当前 `ur5` 工作区的实机联调文档。目标只有一个：把 MoveIt 的执行轨迹稳定送到上位机，再由上位机下发给机器人。
+面向当前 `marvin_pro` 工作区的实机联调文档。目标只有一个：把 MoveIt 的执行轨迹稳定送到上位机，再由上位机下发给机器人。
 
 ## 概览
 #下面有关路径都请换成你自己的路径，内部有些文件是绝对路径，你也自己改一改
@@ -26,7 +26,7 @@ MoveIt Execute
 工作区路径（example）
 
 ```bash
-/home/tjzn-zwt/ur5
+/home/tjzn-zwt/marvin_pro
 ```
 
 ## 1. 快速开始
@@ -36,7 +36,7 @@ MoveIt Execute
 ### 1.1 编译
 
 ```bash
-cd /home/tjzn-zwt/ur5
+cd /home/tjzn-zwt/marvin_pro
 source /opt/ros/humble/setup.bash
 colcon build --packages-select \
   robotnode_marvin_msgs \
@@ -51,7 +51,7 @@ source install/setup.bash
 终端 A：上位机控制
 
 ```bash
-cd /home/tjzn-zwt/ur5
+cd /home/tjzn-zwt/marvin_pro
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 launch robotnode_marvin_ros_control bringup_control_m6.launch.py
@@ -60,7 +60,7 @@ ros2 launch robotnode_marvin_ros_control bringup_control_m6.launch.py
 终端 B：桥接节点
 
 ```bash
-cd /home/tjzn-zwt/ur5
+cd /home/tjzn-zwt/marvin_pro
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 run marvin_real_control trajectory_to_marvin_cmd
@@ -69,7 +69,7 @@ ros2 run marvin_real_control trajectory_to_marvin_cmd
 终端 C：MoveIt
 
 ```bash
-cd /home/tjzn-zwt/ur5
+cd /home/tjzn-zwt/marvin_pro
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 launch marvin_robot_config demo.launch.py
@@ -78,7 +78,7 @@ ros2 launch marvin_robot_config demo.launch.py
 终端 D：机器人置为可运行
 
 ```bash
-cd /home/tjzn-zwt/ur5
+cd /home/tjzn-zwt/marvin_pro
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 service call /control/set_ready std_srvs/srv/Trigger "{}"
@@ -210,10 +210,10 @@ ros2 launch robotnode_marvin_ros_control bringup_control_m6.launch.py
 
 ### 6.2 `The message type 'robotnode_marvin_msgs/msg/Jointcmd' is invalid`
 
-先重启 daemon，并确认接口存在：
+先重启 demo，并确认接口存在：
 
 ```bash
-cd /home/tjzn-zwt/ur5
+cd /home/tjzn-zwt/marvin_pro
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 daemon stop
@@ -260,7 +260,7 @@ Robot not connected
 只想看最短步骤时，按这个顺序执行：
 
 ```bash
-cd /home/tjzn-zwt/ur5
+cd /home/tjzn-zwt/marvin_pro
 source /opt/ros/humble/setup.bash
 colcon build --packages-select robotnode_marvin_msgs robotnode_marvin_ros_control marvin_real_control marvin_robot_config
 source install/setup.bash
@@ -287,3 +287,5 @@ ros2 service call /control/set_mode robotnode_marvin_msgs/srv/Int "{data: 1}"
 ros2 topic info /control/joint_cmd_A -v
 ros2 topic hz /control/joint_cmd_A
 ```
+
+## 8. 如果遇到moveit无法正常载入urdf，尝试回退到旧版本，实测11.2.17可行

@@ -1,10 +1,19 @@
+# Ignore everything at the repository root by default.
+*
+
+# Keep the source tree and the selected top-level files versioned.
+!.gitignore
+!README_MoveIt_Bridge_ZH.md
+!src/
+
+# Ignore common generated/editor files inside allowed directories.
 build/
 install/
 log/
+home/
 *.deb
 .DS_Store
 .vscode/
 .idea/
 __pycache__/
 *.pyc
-home/
