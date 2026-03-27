@@ -213,7 +213,7 @@ ros2 launch robotnode_marvin_ros_control bringup_control_m6.launch.py
 先重启 demo，并确认接口存在：
 
 ```bash
-cd /home/tjzn-zwt/marvin_pro
+cd /home/your_name/marvin_pro
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 daemon stop
@@ -260,7 +260,7 @@ Robot not connected
 只想看最短步骤时，按这个顺序执行：
 
 ```bash
-cd /home/tjzn-zwt/marvin_pro
+cd /home/your_name/marvin_pro
 source /opt/ros/humble/setup.bash
 colcon build --packages-select robotnode_marvin_msgs robotnode_marvin_ros_control marvin_real_control marvin_robot_config
 source install/setup.bash
